@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'store',
     'carts',
+    'django_seed',
 ]
 
 MIDDLEWARE = [

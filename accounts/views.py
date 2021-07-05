@@ -3,6 +3,7 @@ from .forms import RegistrationForm
 from .models import Account
 from django.http import HttpResponse
 from django.contrib import messages , auth
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def register(request):
@@ -20,7 +21,7 @@ def register(request):
             user.phone_number = phone_number
             user.save()
             messages.success(request, 'Registro exitoso')
-            return redirect('registers')
+            return redirect('register')
         else:
             messages.error(request, 'Tu Formulario contiene Errores')
             #exit()
@@ -32,6 +33,10 @@ def register(request):
     return render(request,'accounts/register.html',context)
 
 def login(request):
+
+    #if auth.authenticate:
+        #return redirect('home')
+
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -46,5 +51,8 @@ def login(request):
             return redirect('login')
     return render(request,'accounts/login.html')
 
+@login_required( login_url = 'login')
 def logout(request):
-    return
+    auth.logout(request)
+    messages.success(request,'Tu sesion ha terminado')
+    return redirect('login')
