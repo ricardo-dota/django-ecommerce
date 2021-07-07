@@ -145,3 +145,11 @@ STATICFILES_DIRS = [
 # configuracion de lkos archivos media
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
+
+
+#SMTP CONFIG 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'devantoniomorales@gmail.com'
+EMAIL_HOST_PASSWORD = 'Ricardo01?'
+EMAIL_USE_TLS = True
