@@ -175,7 +175,7 @@
 	var url = "{% url 'payments' %}"
 	var csrftoken = getCookie('csrftoken');
 	var orderID = "{{order.order_number}}"
-	var redirect_url = "{% url 'payments' %}"
+	var redirect_url = "{% url 'order_complete' %}"
 
 
 
@@ -200,7 +200,7 @@
 				  .then((response) => response.json())
 				  .then((data) => {
 					  console.log(data);
-						//window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+					  window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
 		});
 	}
 

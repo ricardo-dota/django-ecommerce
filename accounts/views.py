@@ -1,3 +1,4 @@
+from orders.models import Order
 from carts.views import _cart_id
 from django.shortcuts import redirect, render
 from .forms import RegistrationForm
@@ -7,7 +8,6 @@ from django.contrib import messages , auth
 from django.contrib.auth.decorators import login_required
 from carts.models import Cart, CartItem
 from carts.views import _cart_id
-
 #verificacion del email 
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -159,7 +159,14 @@ def activate(request , uidb64d , token):
 
 
 def dashboard(request):
-    return render(request,'accounts/dashboard.html')
+    orders = Order.objects.order_by('-created_at').filter( user_id = request.user.id , is_ordered = True)
+    orders_count = orders.count()
+
+    context = {
+        'orders':orders,
+        'orders_count':orders_count,
+    }
+    return render(request,'accounts/dashboard.html',context)
 
 
 def forgotPassword(request):
@@ -224,3 +231,12 @@ def resetPassword(request):
             return redirect('resetPassword')
     else:
         return render(request,'accounts/resetPassword.html')
+
+def my_orders(request):
+    return
+
+def edit_profile(request):
+    return
+
+def change_password(request):
+    return

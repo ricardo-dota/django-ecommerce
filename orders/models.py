@@ -18,6 +18,10 @@ class Payment( models.Model):
     status          = models.CharField( max_length= 100)
     created_at      = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = '3. Pago'
+        verbose_name_plural = '3. Pagos'
+
     def __str__(self):
         return self.payment_id
 
@@ -50,6 +54,9 @@ class Order(models.Model):
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = '1. Orden Terminada'
+        verbose_name_plural = '1. Ordenes Terminadas'
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -60,6 +67,12 @@ class Order(models.Model):
     def __str__(self):
         return self.order_number
 
+
+class OrderNotOrdered(Order):
+    class Meta:
+        proxy = True
+        verbose_name = '2. Orden No Terminada'
+        verbose_name_plural = '2. Ordenes No Terminadas'
 
 class OrderProduct(models.Model):
     order           = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -75,4 +88,8 @@ class OrderProduct(models.Model):
 
     def __str__(self):
         return self.product.product_naame
+
+    class Meta:
+        verbose_name = '4. Producto en la Orden'
+        verbose_name_plural = '4. Productos en la Orden'
 

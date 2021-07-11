@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from carts.models import CartItem
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
+from store.models import ProductGallery
 
 # Create your views here.
 
@@ -42,9 +43,12 @@ def product_detail(request,category_slug,product_slug):
 
     except Exception as e:
         raise e
+
+    product_gallery = ProductGallery.objects.filter( product = single_product.id)
     context = {
         'single_product':single_product,
-        'in_cart' : in_cart
+        'in_cart' : in_cart,
+        'product_gallery' :product_gallery
     }
     return render(request , 'store/product_detail.html',context)
 

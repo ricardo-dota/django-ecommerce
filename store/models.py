@@ -20,8 +20,8 @@ class Product(models.Model):
     modified_date   =  models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'Producto'
-        verbose_name_plural = 'productos'
+        verbose_name = '1. Producto'
+        verbose_name_plural = '1. Productos'
 
     def get_url(self):
         return reverse('products_detail', args=[self.category.slug, self.slug]) 
@@ -49,8 +49,31 @@ class Variation(models.Model):
     created_date        = models.DateTimeField(auto_now_add=True)
 
     objects = VariationManager()
-    
+
+    class Meta:
+        verbose_name  = '4. Combinacion'
+        verbose_name_plural  = '4. Combinaciones'
+
     def __str__(self):
         return self.variaation_value
+
+
+class ProductGallery(models.Model):
+    product         = models.ForeignKey( Product , default=None , on_delete=CASCADE)
+    image           = models.ImageField(upload_to = 'store/products' ,max_length= 255 ,verbose_name = "foto" )
+    created_date    = models.DateTimeField(auto_now_add=True)
+
+    def __Str__(self):
+        return self.product.product_naame
+    
+    class Meta:
+        verbose_name  = '3. Galeria de Producto'
+        verbose_name_plural  = '3. Galeria de Productos'
+
+class CategoryCustom(Category):
+    class Meta:
+        proxy = True
+        verbose_name = '2. Categoria'
+        verbose_name_plural = '2. Categorias'
 
 
